@@ -1,33 +1,10 @@
-import { getTodos } from "../_lib/data-service";
-import Todo from "./Todo";
+"use client";
 
-export const revalidate = 0;
+import ListOfTodos from "./ListOfTodos";
+import TasksCompleted from "./TasksCompleted";
 
-export default async function TodoList() {
-  const data = await getTodos();
+export default function TodoList({ data }) {
+  if (!data.length) return <TasksCompleted />;
 
-  if (!data.length)
-    return (
-      <div className="mt-5">
-        <p className="px-5 text-gray-500">
-          Yaaay you have nothing to do today!!!!
-        </p>
-      </div>
-    );
-
-  return (
-    <>
-      <ul className="mt-5">
-        {data.map((todo) => (
-          <Todo key={todo.id} todo={todo} />
-        ))}
-      </ul>
-      {data.length > 0 ? (
-        <p className="px-5 py-3 text-center text-gray-400">
-          {data.filter((t) => t.completed).length} of {data.length} tasks
-          completed biatch
-        </p>
-      ) : null}
-    </>
-  );
+  return <ListOfTodos data={data} />;
 }
