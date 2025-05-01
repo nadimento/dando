@@ -37,8 +37,8 @@ export default function ListOfTodos({ data, onError }) {
 
       {optimisticTodos.length > 0 ? (
         <p className="px-5 py-3 text-center text-gray-400">
-          {data.filter((t) => t.completed).length} of {data.length} tasks
-          completed biatch
+          {optimisticTodos.filter((t) => t.completed).length} of {data.length}{" "}
+          tasks completed biatch
         </p>
       ) : null}
     </>
