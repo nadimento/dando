@@ -4,7 +4,7 @@ import { startTransition, useOptimistic } from "react";
 import Todo from "./Todo";
 import { deleteTask } from "../_lib/actions/deleteTask";
 
-export default function ListOfTodos({ data }) {
+export default function ListOfTodos({ data, onError }) {
   const [optimisticTodos, optimisticDelete] = useOptimistic(
     data,
     (currentTodos, id) => {
@@ -17,6 +17,8 @@ export default function ListOfTodos({ data }) {
       optimisticDelete(id);
     });
 
+    onError("");
+
     await deleteTask(id);
   }
 
@@ -24,7 +26,12 @@ export default function ListOfTodos({ data }) {
     <>
       <ul className="mt-5">
         {optimisticTodos.map((todo) => (
-          <Todo key={todo.id} todo={todo} onDelete={handleDelete} />
+          <Todo
+            key={todo.id}
+            todo={todo}
+            onDelete={handleDelete}
+            onError={onError}
+          />
         ))}
       </ul>
 

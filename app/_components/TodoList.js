@@ -3,8 +3,8 @@
 import ListOfTodos from "./ListOfTodos";
 import TasksCompleted from "./TasksCompleted";
 
-export default function TodoList({ data }) {
+export default function TodoList({ data, onError }) {
   if (!data.length) return <TasksCompleted />;
 
-  return <ListOfTodos data={data} />;
+  return <ListOfTodos onError={onError} data={data} />;
 }
